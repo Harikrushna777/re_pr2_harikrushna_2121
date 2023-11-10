@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -23,8 +22,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size s = MediaQuery.of(context).size;
-
     FirstLoginController firstLoginController = Get.put(FirstLoginController());
 
     return Scaffold(

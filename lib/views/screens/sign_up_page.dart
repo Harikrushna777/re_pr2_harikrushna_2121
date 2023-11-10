@@ -5,11 +5,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:re_pr2_harikrushna_2121/controllers/login_controller.dart';
 import 'package:re_pr2_harikrushna_2121/controllers/password_controller.dart';
+import 'package:re_pr2_harikrushna_2121/helpers/api_helper.dart';
 
 import '../../helpers/auth_hepler.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class SignUpPage extends StatelessWidget {
+  SignUpPage({super.key});
 
   String emailid = "";
   String password = "";
@@ -27,6 +28,9 @@ class LoginPage extends StatelessWidget {
     FirstLoginController firstLoginController = Get.put(FirstLoginController());
 
     return Scaffold(
+      appBar: AppBar(
+        foregroundColor: Colors.blue,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -60,7 +64,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 const Gap(10),
                 Text(
-                  "Crate New Account",
+                  "Login Your Account",
                   style: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -141,78 +145,23 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const Gap(20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () async {
-                        bool login = await FirebaseAuthHelper.firebaseAuthHelper
-                            .registerUser(
-                          email: emailid,
-                          password: password,
-                        );
-                        if (login) {
-                          Get.toNamed('/home');
-                        }
-                      },
-                      child: Text(
-                        "Sign In",
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Get.toNamed('/sign_up_page');
-                      },
-                      child: Text(
-                        "Sign Up",
-                        style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Expanded(child: Divider(thickness: 1)),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Or",
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const Expanded(child: Divider(thickness: 1)),
-                  ],
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    GoogleSignInAccount account = await FirebaseAuthHelper
-                        .firebaseAuthHelper
-                        .googleSignIn();
-                    // if(account!=null){
-                    //   user.username=
-                    // }
+                ElevatedButton(
+                  onPressed: () async {
+                    bool login = await FirebaseAuthHelper.firebaseAuthHelper
+                        .loginWithUserNamePassword(
+                      email: emailid,
+                      password: password,
+                    );
+                    if (login) {
+                      Get.toNamed('/home');
+                    }
                   },
-                  child: Container(
-                    height: 35,
-                    width: 35,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          image: NetworkImage(
-                              'https://cdn-icons-png.flaticon.com/512/2702/2702602.png'),
-                          fit: BoxFit.cover),
-                      borderRadius: BorderRadius.circular(50),
+                  child: Text(
+                    "Sign In",
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
                     ),
                   ),
                 ),
@@ -240,25 +189,6 @@ class LoginPage extends StatelessWidget {
                 //     //   Get.snackbar("Failed", "User Can't Axis..");
                 //     // }
                 //   },
-                //   child: Container(
-                //     height: s.height * 0.06,
-                //     width: s.width * 0.4,
-                //     decoration: const BoxDecoration(
-                //       color: Color(0xFF27447C),
-                //       borderRadius: BorderRadius.all(
-                //         Radius.circular(20),
-                //       ),
-                //     ),
-                //     alignment: Alignment.center,
-                //     child: Text(
-                //       "Submit",
-                //       style: GoogleFonts.headlandOne(
-                //         fontSize: 22,
-                //         color: Colors.white,
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //     ),
-                //   ),
                 // ),
               ],
             ),

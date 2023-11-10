@@ -206,8 +206,11 @@ class HomePage extends StatelessWidget {
               Row(
                 children: [
                   Text("Theame"),
-                  Spacer();
-                  Switch(value: value, onChanged: onChanged)
+                  Spacer(),
+                  // Switch(
+                  //   value: false,
+                  //   onChanged: () {},
+                  // ),
                 ],
               ),
             ],

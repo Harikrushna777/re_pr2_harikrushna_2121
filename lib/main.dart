@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:re_pr2_harikrushna_2121/controllers/login_controller.dart';
-// import 'package:re_pr2_harikrushna_2121/firebase_options.dart';
 import 'package:re_pr2_harikrushna_2121/views/screens/cartpage.dart';
 import 'package:re_pr2_harikrushna_2121/views/screens/detailpage.dart';
 import 'package:re_pr2_harikrushna_2121/views/screens/favorite_page.dart';
@@ -14,12 +13,13 @@ import 'package:re_pr2_harikrushna_2121/views/screens/sign_up_page.dart';
 import 'package:re_pr2_harikrushna_2121/views/screens/splash_screen.dart';
 
 import 'controllers/theme_controller.dart';
+import 'firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    option: DefaultFirebaseOptions.currentPlatform,
-  )
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

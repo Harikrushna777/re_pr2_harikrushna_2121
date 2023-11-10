@@ -2,11 +2,13 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthHelper {
   FirebaseAuthHelper._pc();
 
   static final FirebaseAuthHelper firebaseAuthHelper = FirebaseAuthHelper._pc();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   loginAnonymously() async {
     try {
@@ -54,95 +56,28 @@ class FirebaseAuthHelper {
     }
   }
 
-  Future<GoogleSignInAccount?> googleSignIn() async {
-    GoogleSignInAccount? account = await googleSignIn.;
-    GoogleSignInAuthentication authentication = await account!.authentication;
-    AuthCredential credential = GoogleAuthCredential.credential(
-      idToken: authentication.idToken,
-      accessToken: authentication.accessToken,
-    );
-    FirebaseAuth.instance.signInWithCredential(credential);
-    // if(account!=null){
-    //   return true;
-    // }
-    // else{
-    //   return false;
-    // }
-    return account;
+  signWithGoogle() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
+    try {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount!.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+      final UserCredential userCredential =
+          await auth.signInWithCredential(credential);
+      User? user = userCredential.user;
+      log("$user");
+      return user;
+    } catch (e) {
+      log("$e");
+    }
   }
 
   signOut() {
     FirebaseAuth.instance.signOut();
   }
-
-// FirebaseFirestore databse = FirebaseFirestore.instance;
-//
-//   // addStudent({required FireStoreModal fireStoreModal}) {
-//   //   final user = <String, dynamic>{
-//   //     // "age": fireStoreModal.age,
-//   //     "id": fireStoreModal.id,
-//   //     "name": fireStoreModal.name,
-//   //   };
-//   //   db.collection("student").add(user).then(
-//   //         (DocumentReference doc) => log(
-//   //           'DocumentSnapshot added with ID: ${doc.id}',
-//   //         ),
-//   //       );
-//   // }
-//
-//   addData() {
-//     final user = <String, dynamic>{
-//       "age": 19,
-//       "id": 102,
-//       "name": "ved",
-//     };
-//     db.collection("student").add(user).then(
-//           (DocumentReference doc) =>
-//               log('DocumentSnapshot added with ID: ${doc.id}'),
-//         );
-//   }
-//
-//   readData() async {
-//     return await db.collection("users").get().then((event) {
-//       for (var doc in event.docs) {
-//         log("${doc.id} => ${doc.data()}");
-//       }
-//     });
-//   }
-//
-// // addStudent({required FireStoreModal fireStoreModal}) {
-// //   final user = <String, dynamic>{
-// //     // "age": fireStoreModal.age,
-// //     "id": fireStoreModal.id,
-// //     "name": fireStoreModal.name,
-// //   };
-// //   db.collection("student").add(user).then(
-// //         (DocumentReference doc) =>
-// //         log(
-// //           'DocumentSnapshot added with ID: ${doc.id}',
-// //         ),
-// //   );
-// // }
-//
-// // addData() {
-// //   final user = <String, dynamic>{
-// //     "age": 19,
-// //     "id": 102,
-// //     "name": "ved",
-// //   };
-// //   db.collection("student").add(user).then(
-// //         (DocumentReference doc) =>
-// //         log('DocumentSnapshot added with ID: ${doc.id}'),
-// //   );
-// // }
-//
-// // readData() async {
-// //   return await db.collection("users").get().then((event) {
-// //     for (var doc in event.docs) {
-// //       log("${doc.id} => ${doc.data()}");
-// //     }
-// //   });
-// // }
 }
-
-class GoogleSignInAccount {}

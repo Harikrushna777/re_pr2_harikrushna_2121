@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:re_pr2_harikrushna_2121/controllers/login_controller.dart';
 import 'package:re_pr2_harikrushna_2121/controllers/password_controller.dart';
 
@@ -200,9 +201,6 @@ class LoginPage extends StatelessWidget {
                     GoogleSignInAccount account = await FirebaseAuthHelper
                         .firebaseAuthHelper
                         .googleSignIn();
-                    // if(account!=null){
-                    //   user.username=
-                    // }
                   },
                   child: Container(
                     height: 35,

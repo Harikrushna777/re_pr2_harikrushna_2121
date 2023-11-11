@@ -6,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthHelper {
   FirebaseAuthHelper._pc();
+  GoogleSignIn googleSignIn = GoogleSignIn();
 
   static final FirebaseAuthHelper firebaseAuthHelper = FirebaseAuthHelper._pc();
   FirebaseAuth auth = FirebaseAuth.instance;

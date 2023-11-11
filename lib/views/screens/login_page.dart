@@ -195,9 +195,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    GoogleSignInAccount account = await FirebaseAuthHelper
-                        .firebaseAuthHelper
-                        .googleSignIn();
+                    FirebaseAuthHelper.firebaseAuthHelper.signWithGoogle();
                   },
                   child: Container(
                     height: 35,

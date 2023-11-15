@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -149,8 +151,10 @@ class LoginPage extends StatelessWidget {
                           email: emailid,
                           password: password,
                         );
-                        if (login) {
+                        if (login == true) {
                           Get.toNamed('/home');
+                        } else {
+                          log("$login");
                         }
                       },
                       child: Text(
@@ -196,6 +200,7 @@ class LoginPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () async {
                     FirebaseAuthHelper.firebaseAuthHelper.signWithGoogle();
+                    Get.toNamed('/home');
                   },
                   child: Container(
                     height: 35,
